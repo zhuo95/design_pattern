@@ -9,19 +9,20 @@ public class OrderServiceStaticProxy {
     private IOrderService iOrderService;
 
     public int saveOrder(Order order){
-        beforeMethod();
+        beforeMethod(order);
         iOrderService = new OrderServiceImpl();
+        int res = iOrderService.saveOrder(order);
+        afterMethod();
+        return res;
+    }
+
+    //数据库分库
+    private void beforeMethod(Order order){
         int userid = order.getUserId();
         int dbRouter = userid%2;
         System.out.println("静态代理分配到 【db "+dbRouter +"】处理数据");
         //todo 设置datasource 用于分库
         DataSourceContextHolder.setDBType(String.valueOf(dbRouter));
-        int  res = iOrderService.saveOrder(order);
-        afterMethod();
-        return res;
-    }
-
-    private void beforeMethod(){
         System.out.println("before called");
     }
 
