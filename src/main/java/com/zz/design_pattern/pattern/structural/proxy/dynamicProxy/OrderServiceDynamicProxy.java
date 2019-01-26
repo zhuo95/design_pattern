@@ -6,7 +6,7 @@ import java.lang.reflect.Proxy;
 
 
 /**
- * 动态代理不止可以代理orderservice，可以代理多个service
+ * 动态代理不止可以代理orderservice，可以代理多个service.
  */
 public class OrderServiceDynamicProxy implements InvocationHandler {
     private Object target;
