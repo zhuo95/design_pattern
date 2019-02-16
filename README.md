@@ -109,3 +109,89 @@ public class JavaCourseFactory implements CourseFactory {
 ```
 
 Abstract factory creates products from the same product family(like JavaNote and JavaVideo, they are all from JavaCourse family)
+
+### 4. singleton
+
+guarantee the class just has one object, can be used in threadpool or database connection cache
+
+* private constructor
+* thread safe
+* delayed loading
+* serialization
+* reflect
+
+##### implementation:
+
+1. HungrySingleton
+
+```$xslt
+public class HungrySingleton implements Cloneable {
+    private final static HungrySingleton hungrySingleton = new HungrySingleton();
+
+    private HungrySingleton(){
+
+    }
+
+    public static HungrySingleton getInstance(){
+        return hungrySingleton;
+    }
+
+}
+```
+2. LazySingleton
+  
+need to use synchronized to make it thread safe
+```$xslt
+public class LazySingleton {
+    private static LazySingleton lazySingleton = null;
+    private LazySingleton(){
+
+    }
+
+//    //not thread safe
+//    public static LazySingleton getInstance(){
+//        if(lazySingleton == null){
+//            lazySingleton = new LazySingleton();
+//        }
+//        return lazySingleton;
+//    }
+
+    public synchronized static LazySingleton getInstance(){
+        if(lazySingleton == null){
+            lazySingleton = new LazySingleton();
+        }
+        return lazySingleton;
+    }
+}
+```
+
+3. Enum
+
+```$xslt
+public class SingletonExample {
+    
+    private SingletonExample(){}
+
+    private static SingletonExample getInstance(){
+        return Singleton.INSTANCE.getSingleton();
+    }
+
+    //enum
+    private enum Singleton{
+        INSTANCE;
+
+        private SingletonExample7 singleton;
+
+        //jvm guarantee this function is just executed once
+        Singleton(){
+            singleton = new SingletonExample7();
+        }
+
+        public SingletonExample7 getSingleton(){
+            return singleton;
+        }
+    } 
+}
+```
+
+
