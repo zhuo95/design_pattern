@@ -76,3 +76,36 @@ public class PythonVideo extends Video {
 ```
 
 Compare with simple factory, it is more expansible
+
+### 3. abstract factory
+
+<img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/abstract_factory.png" width = "400" height = "300" align=center />
+<br/>
+
+In Abstract Factory pattern an interface is responsible for creating a factory of related objects without explicitly specifying their classes.
+
+```$xslt
+// interface for creating the factory
+public interface CourseFactory {
+    Video getVideo();
+
+    Note getNote();
+}
+```
+
+A factory implements the interface:
+```$xslt
+public class JavaCourseFactory implements CourseFactory {
+    @Override
+    public Video getVideo() {
+        return new JavaVideo();
+    }
+
+    @Override
+    public Note getNote() {
+        return new JavaNote();
+    }
+}
+```
+
+Abstract factory creates products from the same product family(like JavaNote and JavaVideo, they are all from JavaCourse family)
