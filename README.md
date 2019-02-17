@@ -1,6 +1,6 @@
 ## Creational
 
-### 1.simple factory
+### [1.simple factory](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/simplefactory)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/simple_factory.png" width = "400" height = "300" align=center />
   
@@ -39,7 +39,7 @@ public class VideoFactory {
 
 ```
 
-### 2.factory method
+### [2.factory method](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/factorymethod)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/factory_method.png" width = "400" height = "300" align=center />
 <br/>
@@ -77,7 +77,7 @@ public class PythonVideo extends Video {
 
 Compare with simple factory, it is more expansible
 
-### 3. abstract factory
+### [3. abstract factory](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/abstractfactory)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/abstract_factory.png" width = "400" height = "300" align=center />
 <br/>
@@ -110,7 +110,7 @@ public class JavaCourseFactory implements CourseFactory {
 
 Abstract factory creates products from the same product family(like JavaNote and JavaVideo, they are all from JavaCourse family)
 
-### 4. singleton
+### [4. singleton](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/singleton)
 
 guarantee the class just has one object, can be used in threadpool or database connection cache
 
@@ -194,7 +194,7 @@ public class SingletonExample {
 }
 ```
 
-### 5. builder
+### [5. builder](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/builder)
 The Builder is a design pattern designed to provide a flexible solution to various object creation problems.
 It can be used when a class has many fields 
   
@@ -265,7 +265,7 @@ public StringBuilder append(String var1) {
 
 ```
 
-### 6. prototype
+### [6. prototype](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/prototype)
 
 prototype pattern creates objects through clone instead of new, it can be used when initiating a instance takes a lot of time
   
@@ -339,7 +339,7 @@ public class Mail implements Cloneable{
 
 ## structural
 
-### 1. [facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
+### [1.facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/facade.png" width = "400" height = "300" align=center />
   
