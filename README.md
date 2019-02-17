@@ -194,4 +194,74 @@ public class SingletonExample {
 }
 ```
 
+### 5. builder
+The Builder is a design pattern designed to provide a flexible solution to various object creation problems.
+It can be used when a class has many fields 
+  
+  inner static class, every build function returns itself
+```$xslt
+public class Course {
+    private String name;
+    private String PPT;
+    private String video;
+    private String note;
+    private String QA;
+
+    public Course(CourseBuilder courseBuilder){
+        this.name = courseBuilder.name;
+        this.note = courseBuilder.note;
+        this.PPT = courseBuilder.PPT;
+        this.QA = courseBuilder.QA;
+        this.video = courseBuilder.video;
+    }
+
+    public static class CourseBuilder{
+        private String name;
+        private String PPT;
+        private String video;
+        private String note;
+        private String QA;
+
+        public CourseBuilder buildNmae(String courseName){
+            this.name = courseName;
+            return this;
+        }
+
+        public CourseBuilder buildPPT(String coursePPT) {
+            this.PPT = coursePPT;
+            return this;
+        }
+
+        public CourseBuilder buildVideo(String courseVideo) {
+            this.video = courseVideo;
+            return this;
+        }
+
+        public CourseBuilder buildNote(String courseNote) {
+            this.note = courseNote;
+            return this;
+        }
+
+        public CourseBuilder buildQA(String courseQA) {
+            this.QA = courseQA;
+            return this;
+        }
+
+        public Course build(){
+            return new Course(this);
+        }
+
+    }
+}
+
+```
+
+StringBuilder append function in Java
+```$xslt
+public StringBuilder append(String var1) {
+    super.append(var1);
+    return this;
+}
+
+```
 
