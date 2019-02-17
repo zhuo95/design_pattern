@@ -339,7 +339,7 @@ public class Mail implements Cloneable{
 
 ## structural
 
-### [1.facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
+### [1. facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/facade.png" width = "400" height = "300" align=center />
   
@@ -347,3 +347,58 @@ public class Mail implements Cloneable{
 this is a gift-exchange system which contains 2 sub services.
 GiftExchangeService provides apis to visit two sub services.
 Customer(Test) just need to interact with GiftExchangeService.
+
+
+
+### [1. adaptor](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/adapter)
+
+provide a adaptor of one class to another, make them be able to work together
+
+<img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/adapter.png" width = "400" height = "300" align=center />
+  
+<br/>
+
+two ways of implementation
+
+1. object adapter (target is the interface you want to adjust)
+```$xslt
+//adaptee被适配的类
+public class Adaptee {
+    public void adapteeRequest(){
+        System.out.println("被适配者的方法");
+    }
+}
+
+//adapter 在适配器中new 一个 被适配的类
+public class Adapter implements Target {
+    private Adaptee adaptee = new Adaptee();
+
+    @Override
+    public void request() {
+        adaptee.adapteeRequest();
+    }
+}
+```
+
+2. class adapter
+```$xslt
+public class Adaptee {
+    public void adapteeRequest(){
+        System.out.println("被适配者的方法");
+    }
+}
+
+
+/**
+ * 类适配器模式
+ * Adaptee 是被适配的类
+ * 通过继承来获取Adaptee 的方法
+ */
+public class Adapter extends Adaptee implements Target{
+    @Override
+    public void request() {
+        super.adapteeRequest();
+    }
+}
+
+```
