@@ -337,3 +337,13 @@ public class Mail implements Cloneable{
 }
 ```
 
+## structural
+
+### 1. facade
+
+<img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/facade.png" width = "400" height = "300" align=center />
+  
+<br/>
+this is a gift-exchange system which contains 2 sub services.
+GiftExchangeService provides apis to visit two sub services.
+Customer(Test) just need to interact with GiftExchangeService.
