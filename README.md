@@ -403,7 +403,7 @@ public class Adapter extends Adaptee implements Target{
 
 ```
 
-### [1. decorator](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/decorator)
+### [2. decorator](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/decorator)
 
 add new feature to the object without changing the original object
 it is more flexible than inheritance
