@@ -339,7 +339,7 @@ public class Mail implements Cloneable{
 
 ## structural
 
-### 1. facade
+### 1. [facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/facade.png" width = "400" height = "300" align=center />
   
