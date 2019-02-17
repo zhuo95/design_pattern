@@ -402,3 +402,159 @@ public class Adapter extends Adaptee implements Target{
 }
 
 ```
+
+### [1. decorator](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/decorator)
+
+add new feature to the object without changing the original object
+it is more flexible than inheritance
+
+add new features to a class without decorator:  based on extends
+```$xslt
+public class Cake {
+    protected String getName(){
+        return "煎饼";
+    }
+
+    protected int cost(){
+        return 8;
+    }
+}
+// add egg by overriding the function
+public class CakeWithEgg extends Cake {
+    @Override
+    protected String getName() {
+        return super.getName() + "加一个鸡蛋";
+    }
+
+    @Override
+    protected int cost() {
+        return super.cost()+ 1;
+    }
+}
+
+public class CakeWithEggAndSausage extends CakeWithEgg {
+    @Override
+    protected String getName() {
+        return super.getName() + "加一个香肠";
+    }
+
+    @Override
+    protected int cost() {
+        return super.cost() + 2;
+    }
+}
+
+```
+
+improve with decorator pattern:
+
+```$xslt
+public abstract class ACake {
+    protected abstract String getName();
+
+    protected abstract int cost();
+}
+```
+abstraction of decorator:
+```$xslt
+//composite the Acake into decorator
+public abstract class AbstractDecorator extends ACake {
+    private ACake aCake;
+
+    public AbstractDecorator(ACake aCake) {
+        this.aCake = aCake;
+    }
+
+    @Override
+    protected String getName() {
+        return this.aCake.getName();
+    }
+
+    @Override
+    protected int cost() {
+        return this.aCake.cost();
+    }
+
+    protected abstract void dosomething();
+}
+
+```
+
+```$xslt
+public class Cake extends ACake {
+    @Override
+    protected String getName() {
+        return "普通煎饼";
+    }
+
+    @Override
+    protected int cost() {
+        return 8;
+    }
+}
+
+public class EggDecorator extends AbstractDecorator{
+    public EggDecorator(ACake aCake) {
+        super(aCake);
+    }
+
+    @Override
+    protected void dosomething() {
+
+    }
+
+    @Override
+    protected String getName() {
+        return super.getName()+"加鸡蛋";
+    }
+
+    @Override
+    protected int cost() {
+        return super.cost() +1;
+    }
+}
+
+public class SausageDecorator extends AbstractDecorator{
+    public SausageDecorator(ACake aCake) {
+        super(aCake);
+    }
+
+    @Override
+    protected void dosomething() {
+
+    }
+
+    @Override
+    protected String getName() {
+        return super.getName() + "加一根香肠";
+    }
+
+    @Override
+    protected int cost() {
+        return super.cost() +2;
+    }
+}
+
+ public static void main(String[] args) {
+        ACake aCake = new Cake();
+
+        aCake = new EggDecorator(aCake);
+
+        ACake bCake = new SausageDecorator(aCake);
+
+        ACake cCake = new EggDecorator(aCake);
+
+        System.out.println(aCake.getName()+ " 价格：" + aCake.cost());
+  }
+
+```
+
+It is better than extends because all decorations can be dynamically removed
+
+##### Implementation in JDK:  
+Java IO: inputStream
+```$xslt
+FileInputStream fileInputStream = new FileInputStream(filePath);
+BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+```
+BufferedInputStream is a decorator of FileInputStream, provide buffer functionality
