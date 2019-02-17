@@ -265,3 +265,75 @@ public StringBuilder append(String var1) {
 
 ```
 
+### 6. prototype
+
+prototype pattern creates objects through clone instead of new, it can be used when initiating a instance takes a lot of time
+  
+class should implement Cloneable and have getter and setter
+```$xslt
+public class Mail implements Cloneable{
+    private String name;
+    private String emailAddress;
+    private String content;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        System.out.println("clone method");
+        return super.clone();
+    }
+
+    public Mail(){
+        System.out.println("Mail class Constructor");
+    }
+
+    @Override
+    public String toString() {
+        return "Mail{" +
+                "name='" + name + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+     public static void main(String[] args) throws CloneNotSupportedException {
+            Mail mail = new Mail();
+            mail.setContent("初始化模版");
+            for (int i=0;i<10;i++){
+                //使用原型模式 克隆来发送
+                //每个克隆出来的都有自己的内存地址
+                Mail mailTemp = (Mail) mail.clone();
+                mailTemp.setName("姓名"+i);
+                mailTemp.setEmailAddress("姓名"+i+"@zz.com");
+                mailTemp.setContent("恭喜您中奖了");
+                MailUtil.sendMail(mailTemp);
+            }
+    
+            MailUtil.saveOriginMailRecord(mail);
+     }
+}
+```
+
