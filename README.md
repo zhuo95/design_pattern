@@ -560,7 +560,7 @@ BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStrea
 BufferedInputStream is a decorator of FileInputStream, provide buffer functionality
 
 
-### [2. composite](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/composite)
+### [4. composite](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/composite)
 
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/composite.png" width = "400" height = "300" align=center />
   
@@ -674,4 +674,113 @@ implementation in java
 java.awt.Container  (GUI)
 
 
+### [5. proxy](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/proxy)
+
+provide a proxy of a object to control the access to this object.  
+* protect the object
+* reinforce the object(implement some new features)  
+
+
+e.g. we want to do a database hash algorithm to decide insert into which database before the insert operation
+
+
+##### static proxy
+```$xslt
+public class OrderServiceStaticProxy {
+    private IOrderService iOrderService;
+
+    public int saveOrder(Order order){
+        beforeMethod(order);
+        iOrderService = new OrderServiceImpl();
+        int res = iOrderService.saveOrder(order);
+        afterMethod();
+        return res;
+    }
+
+    //数据库分库
+    private void beforeMethod(Order order){
+        int userid = order.getUserId();
+        int dbRouter = userid%2;
+        System.out.println("静态代理分配到 【db "+dbRouter +"】处理数据");
+        //todo 设置datasource 用于分库
+        DataSourceContextHolder.setDBType(String.valueOf(dbRouter));
+        System.out.println("before called");
+    }
+
+    private void afterMethod(){
+        System.out.println("after called");
+    }
+    
+    
+    public static void main(String[] args) {
+            Order order = new Order();
+            // order.setUserId(1);
+            order.setUserId(2);
+            OrderServiceStaticProxy orderServiceStaticProxy = new OrderServiceStaticProxy();
+            orderServiceStaticProxy.saveOrder(order);
+    }
+}
+```
+##### dynamic proxy
+
+* implement InvocationHandler
+* override invoke
+* Proxy.newProxyInstance bind
+
+```$xslt
+/**
+ * 动态代理不止可以代理orderservice，可以代理多个service.
+ */
+public class OrderServiceDynamicProxy implements InvocationHandler {
+    private Object target;
+
+    //target 是代理的目标类
+    public OrderServiceDynamicProxy(Object target){
+        this.target = target;
+    }
+
+
+    public Object bind(){
+        Class clss = target.getClass();
+        return Proxy.newProxyInstance(clss.getClassLoader(),clss.getInterfaces(),this);
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object argObject = args[0];
+        beforMethod(argObject);
+        Object object = method.invoke(target, args);
+        afterMethod();
+        return object;
+    }
+
+
+    public void beforMethod(Object obj) {
+        int userId = 0;
+        System.out.println("动态代理，before called");
+        if (obj instanceof Order) {
+            Order order = (Order) obj;
+            int dbRouter = userId % 2;
+            System.out.println("动态代理分配到 【db " + dbRouter + "】处理数据");
+            //todo 设置datasource 用于分库
+            DataSourceContextHolder.setDBType(String.valueOf(dbRouter));
+
+        }
+    }
+
+    private void afterMethod(){
+        System.out.println("after called");
+    }
+    
+     public static void main(String[] args) {
+            Order order = new Order();
+            // order.setUserId(1);
+            order.setUserId(2);
+            IOrderService orderService =(IOrderService) new OrderServiceDynamicProxy(new OrderServiceImpl()).bind();
+            orderService.saveOrder(order);
+     }
+
+}
+
+```
 
