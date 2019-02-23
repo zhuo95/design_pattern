@@ -350,7 +350,7 @@ Customer(Test) just need to interact with GiftExchangeService.
 
 
 
-### [1. adaptor](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/adapter)
+### [2. adaptor](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/adapter)
 
 provide a adaptor of one class to another, make them be able to work together
 
@@ -403,7 +403,7 @@ public class Adapter extends Adaptee implements Target{
 
 ```
 
-### [2. decorator](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/decorator)
+### [3. decorator](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/decorator)
 
 add new feature to the object without changing the original object
 it is more flexible than inheritance
@@ -558,3 +558,7 @@ FileInputStream fileInputStream = new FileInputStream(filePath);
 BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
 ```
 BufferedInputStream is a decorator of FileInputStream, provide buffer functionality
+
+
+### [2. composite](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/composite)
+
