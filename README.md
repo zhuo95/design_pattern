@@ -562,3 +562,116 @@ BufferedInputStream is a decorator of FileInputStream, provide buffer functional
 
 ### [2. composite](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/composite)
 
+<img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/composite.png" width = "400" height = "300" align=center />
+  
+<br/>
+
+composite the objects to a tree structure, then we can treat the whole structure as a simple object
+
+e.g.  
+we have course object and courseCatalog(composite with course) object, if we make them extend
+from the same abstract class, they can be treated as the same object but with different operations.
+
+```$xslt
+/**
+ * 课程目录
+ */
+public abstract class CatalogComponent {
+    public void add(CatalogComponent catalogComponent){
+        throw new UnsupportedOperationException("不支持添加课程");
+    }
+
+    public void remove(CatalogComponent catalogComponent){
+        throw new UnsupportedOperationException("不支持删除课程");
+    }
+
+    public String getName(CatalogComponent catalogComponent){
+        throw new UnsupportedOperationException("不支持获取课程");
+    }
+
+    public Double getPrice(CatalogComponent catalogComponent){
+        throw new UnsupportedOperationException("不支持获取课程价格");
+    }
+
+    public void print(){
+        throw new UnsupportedOperationException("不支持打印");
+    }
+}
+```
+
+```$xslt
+// course class
+public class Course extends CatalogComponent {
+    private String name;
+    private double price;
+
+    public Course(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public String getName(CatalogComponent catalogComponent) {
+        return this.name;
+    }
+
+    @Override
+    public Double getPrice(CatalogComponent catalogComponent) {
+        return this.price;
+    }
+
+    @Override
+    public void print() {
+        System.out.println("Course name: "+this.name+", price: "+price);
+    }
+}
+// catalog class
+public class CourseCatalog extends CatalogComponent {
+    private List<CatalogComponent> items = new ArrayList<CatalogComponent>();
+    private Integer level;
+
+    private String name;
+
+    public CourseCatalog(String name, Integer level) {
+        this.name = name;
+        this.level = level;
+    }
+
+    @Override
+    public String getName(CatalogComponent catalogComponent) {
+        return this.name;
+    }
+
+    @Override
+    public void add(CatalogComponent catalogComponent) {
+        items.add(catalogComponent);
+    }
+
+    @Override
+    public void remove(CatalogComponent catalogComponent) {
+       items.remove(catalogComponent);
+    }
+
+    /**
+     * 这里有个坑，组合模式的缺点，难以区别组合的对象到底是谁，这里用level区别
+     */
+    @Override
+    public void print() {
+        System.out.println(this.name);
+        for (CatalogComponent catalogComponent: items){
+            if (this.level!=null){
+                for (int i=0;i<this.level;i++){
+                    System.out.print("    ");
+                }
+            }
+            catalogComponent.print();
+        }
+    }
+}
+```
+
+implementation in java  
+java.awt.Container  (GUI)
+
+
+
