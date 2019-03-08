@@ -784,3 +784,73 @@ public class OrderServiceDynamicProxy implements InvocationHandler {
 
 ```
 
+## behavior
+
+#### [1. strategy](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/behavior/strategy)
+
+design a algorithm family, make them interchangeable, and this pattern doesn't interfere clients to use the algorithm
+
+you can use it when:  
+* system has a lot of classes, but just with different behaviors
+* system need to choose a algorithm dynamically
+
+```$xslt
+// different promotion strategies
+
+//打折
+public class DaZhePromotion implements PromotionStrategy {
+    @Override
+    public void doPromotion() {
+        System.out.printf("\n打折促销");
+    }
+}
+
+
+//返现
+public class FanXianPromotion implements PromotionStrategy{
+    @Override
+    public void doPromotion() {
+        System.out.println("\n返回现金促销");
+    }
+}
+
+// strategy interface
+public interface PromotionStrategy {
+    void doPromotion();
+}
+```
+```
+// factory
+public class PromotionStrategyFactory {
+    private static Map<String,PromotionStrategy> PROMOTION_MAP = new HashMap<>();
+
+    private PromotionStrategyFactory() {
+    }
+
+    static {
+        PROMOTION_MAP.put("DAZHE",new DaZhePromotion());
+        PROMOTION_MAP.put("DIJIAN",new FanXianPromotion());
+        PROMOTION_MAP.put("EMPTY", new EmptyPromotion());
+    }
+
+    public static PromotionStrategy getPromotionStrategy(String key) {
+        if(!PROMOTION_MAP.containsKey(key)) return PROMOTION_MAP.get("EMPTY");
+        return PROMOTION_MAP.get(key);
+    }
+}
+
+public class PromotionActivity {
+    private PromotionStrategy promotionStrategy;
+
+    public PromotionActivity(PromotionStrategy promotionStrategy) {
+        this.promotionStrategy = promotionStrategy;
+    }
+
+    public void executePromotionStrategy(){
+        promotionStrategy.doPromotion();
+    }
+}
+
+
+
+```
