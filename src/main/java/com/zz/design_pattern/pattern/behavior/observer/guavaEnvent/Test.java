@@ -8,6 +8,5 @@ public class Test {
         GuavaEvent guavaEvent = new GuavaEvent();
         eventBus.register(guavaEvent);
         eventBus.post("post内容");
-
     }
 }

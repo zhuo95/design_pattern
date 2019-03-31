@@ -1,8 +1,6 @@
 package com.zz.design_pattern.pattern.behavior.observer.observer_guava;
 
-
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 
 public class Course {
     private String courseName;
@@ -11,7 +9,6 @@ public class Course {
 
     public String getCourseName() {
         return courseName;
-
     }
 
     public Course(String courseName, Teacher teacher) {
