@@ -15,7 +15,7 @@ public class Course extends Observable {
 
     public void produceQuestion(Course course, Question question){
         System.out.println(question.getUserName() + "在" + course.getCourseName()+"提出问题: "+question.getQuestion());
-        setChanged();
+        setChanged(); // observable  changed
         notifyObservers(question);
     }
 }

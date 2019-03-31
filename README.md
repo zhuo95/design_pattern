@@ -854,3 +854,67 @@ public class PromotionActivity {
 
 
 ```
+
+
+#### [2. observer](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/behavior/observer)
+
+push & pull
+
+publisher tell all subscriber changes
+
+```
+public class Course extends Observable {
+    private String courseName;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void produceQuestion(Course course, Question question){
+        System.out.println(question.getUserName() + "在" + course.getCourseName()+"提出问题: "+question.getQuestion());
+        setChanged();
+        notifyObservers(question);
+    }
+}
+
+```
+
+```
+//讲师订阅观察课程，问题属于课程
+public class Teacher implements Observer {
+    private String teacherName;
+
+    public Teacher(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Course course = (Course) o;
+        Question question = (Question) arg;
+        System.out.println(course.getCourseName()+"老师的课程接收到"+question.getUserName()+"的问题: "+question.getQuestion());
+    }
+}
+
+```
+
+
+```
+public class Test {
+
+    public static void main(String[] args) {
+        Course course = new Course("java Course");
+        Teacher teacher = new Teacher("zz");
+        course.addObserver(teacher);
+        Question q = new Question();
+        q.setUserName("yl");
+        q.setQuestion("sb");
+        course.produceQuestion(course, q);
+    }
+}
+
+```
