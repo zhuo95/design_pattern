@@ -1,5 +1,8 @@
 package com.zz.design_pattern.pattern.behavior.memento;
 
+/**
+ * 备忘录模式，后悔药
+ */
 public class Test {
 
     public static void main(String[] args) {
