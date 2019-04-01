@@ -75,6 +75,17 @@ public class PythonVideo extends Video {
 
 ```
 
+```
+public class Test {
+    public static void main(String[] args) {
+        VideoFactory videoFactory = new JavaVideoFactory();
+        Video video = videoFactory.getVideo();
+        video.produce();
+    }
+}
+
+```
+
 Compare with simple factory, it is more expansible
 
 ### [3. abstract factory](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/creational/abstractfactory)
