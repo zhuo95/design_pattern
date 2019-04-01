@@ -352,6 +352,8 @@ public class Mail implements Cloneable{
 
 ### [1. facade](https://github.com/zhuo95/design_pattern/tree/master/src/main/java/com/zz/design_pattern/pattern/structural/facade)
 
+provide an interface to access sub-system apis.
+
 <img src="https://github.com/zhuo95/design_pattern/blob/master/src/main/resources/static/facade.png" width = "400" height = "300" align=center />
   
 <br/>
